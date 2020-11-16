@@ -32,8 +32,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use('/auth', require('./routes/auth'));
-app.use('/quiz', require('./routes/quiz'));
-app.use('/reward', require('./routes/reward'));
+app.use('/item', require('./routes/item'));
 //app.use('/auth-local', require('./routes/auth-local'));
 //app.use('/auth-bnet', require('./routes/auth-bnet'));
 

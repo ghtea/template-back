@@ -2,31 +2,31 @@ import express from 'express';
 
 //import queryString from 'query-string';
 
-import Quiz from '../models/Quiz';
+import Item from '../models/Item';
 
 var router = express.Router();
 
 
 
 // 
-router.get('/:idQuiz', async(req, res, next) => {
+router.get('/:idItem', async(req, res, next) => {
 
   try {
 
     const filter = {
-      _id: req.params.idQuiz
+      _id: req.params.idItem
     };
 
-  Quiz.findOne(filter, (err, founQuiz) => {
+  Item.findOne(filter, (err, founItem) => {
       if (err) return res.status(500).json({
         error: err
       });
-      else if (!founQuiz) {
+      else if (!founItem) {
         return res.status(404).json({
-          error: 'Quiz not found'
+          error: 'Item not found'
         });
       } else {
-        res.json(founQuiz);
+        res.json(founItem);
       }
     });
 
@@ -77,11 +77,11 @@ router.get('/', (req, res) => {
   }]
 
 
-  Quiz.aggregate(pipeline, (err, listQuiz) => {
+  Item.aggregate(pipeline, (err, listItem) => {
     if (err) return res.status(500).send({
       error: 'database failure'
     });
-    res.json(listQuiz);
+    res.json(listItem);
   })
 
 });
@@ -98,7 +98,7 @@ router.post('/', async(req, res, next) => {
 
     const colorAssignmentReq = req.body;
 
-    let mongoQuiz = new Quiz({
+    let mongoItem = new Item({
       
       ...colorAssignmentReq
       
@@ -107,10 +107,10 @@ router.post('/', async(req, res, next) => {
         
     });
 
-    await mongoQuiz.save();
+    await mongoItem.save();
 
 
-    res.send("new Quiz has been created!");
+    res.send("new Item has been created!");
 
   } catch (error) {
     next(error)
@@ -126,12 +126,12 @@ router.post('/', async(req, res, next) => {
 
 
 //UPDATE
-router.put('/:idQuiz', async(req, res, next) => {
+router.put('/:idItem', async(req, res, next) => {
 
   try {
 
     const filter = {
-      _id: req.params.idQuiz
+      _id: req.params.idItem
     };
 
     const date = Date.now();
@@ -150,9 +150,9 @@ router.put('/:idQuiz', async(req, res, next) => {
     };
 
 
-    await Quiz.updateOne(filter, update);
+    await Item.updateOne(filter, update);
 
-    res.send("The Quiz has benn updated!");
+    res.send("The Item has benn updated!");
 
   } catch (error) {
     next(error)
@@ -166,18 +166,18 @@ router.put('/:idQuiz', async(req, res, next) => {
 
 
 // DELETE Comp
-router.delete('/:idQuiz', async(req, res, next) => {
+router.delete('/:idItem', async(req, res, next) => {
 
   try {
 
     try {
       const filter = {
-        _id: req.params.idQuiz
+        _id: req.params.idItem
       };
-      await Quiz.deleteOne(filter);
+      await Item.deleteOne(filter);
 
 
-      res.send("The Quiz has been deleted");
+      res.send("The Item has been deleted");
 
     } catch (error) {
       console.log(error);
