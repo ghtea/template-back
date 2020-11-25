@@ -25,20 +25,26 @@ app.use(cors({
   credentials: true
 }));
 
+/*
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
+*/
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(cookieParser());
 
+app.use('/test', require('./routes/test'));
+
 app.use('/auth', require('./routes/auth'));
 app.use('/item', require('./routes/item'));
-//app.use('/auth-local', require('./routes/auth-local'));
-//app.use('/auth-bnet', require('./routes/auth-bnet'));
 
 
 mongoose
-.connect(process.env.DB_URL, {
+.connect(process.env.URL_DB, {
 useUnifiedTopology: true,
 useNewUrlParser: true,
 useFindAndModify: false

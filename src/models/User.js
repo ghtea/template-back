@@ -18,7 +18,7 @@ const User = new Schema({
 	
   //username: String
   _id: String,
-  type: { type: String, default: "normal" },
+  kind: { type: String, default: "normal" },
   
   email: { type: String },
   passwordHashed: String, // 비밀번호를 해싱해서 저장합니다
@@ -29,9 +29,6 @@ const User = new Schema({
   joined: { type: Date, default: Date.now },
   accessed: { type: Date, default: Date.now },
 
-  listSubject: [String],
-  listSymbol: [String]
-    
 }, { collection: 'User_', versionKey: false, strict: false} );
 
 
